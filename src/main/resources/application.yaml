@@ -1,0 +1,14 @@
+spring:
+  application:
+    name: kopring
+
+message: Hello from Default Profile!
+
+---
+# -Dspring.profiles.active=prod
+spring:
+  config:
+    activate:
+      on-profile: prod
+
+message: Hello from Production Profile!
