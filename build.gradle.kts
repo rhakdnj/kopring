@@ -36,6 +36,7 @@ dependencies {
   runtimeOnly("com.mysql:mysql-connector-j")
 
   testImplementation("org.springframework.boot:spring-boot-starter-test")
+  testImplementation("org.springframework.boot:spring-boot-starter-webflux")
 }
 
 tasks.withType<KotlinCompile> {
@@ -47,4 +48,12 @@ tasks.withType<KotlinCompile> {
 
 tasks.withType<Test> {
   useJUnitPlatform()
+}
+
+sourceSets {
+  test {
+    java {
+      setSrcDirs(listOf("src/test/integration", "src/test/unit"))
+    }
+  }
 }

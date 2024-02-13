@@ -12,3 +12,11 @@ spring:
       on-profile: prod
 
 message: Hello from Production Profile!
+
+---
+spring:
+  config:
+    activate:
+      on-profile: test
+
+message: Hello from Test Profile!
