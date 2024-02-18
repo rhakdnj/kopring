@@ -46,6 +46,46 @@ class CourseControllerUnitTest {
   }
 
   @Test
+  fun `이름, 카테고리가 없으면 400 에러를 던지며, 해당하는 에러 메시지를 바디에 담은다`() {
+    val courseDto = CourseDto(null, "", "")
+
+    every { courseServiceMock.createCourse(courseDto) } answers {
+      CourseDto(1, "Kotlin", "BACKEND")
+    }
+
+    val actual = webTestClient.post()
+      .uri("/courses")
+      .bodyValue(courseDto)
+      .exchange()
+      .expectStatus().isBadRequest
+      .expectBody(String::class.java)
+      .returnResult()
+      .responseBody
+
+    Assertions.assertThat(actual).isEqualTo("Category is required, Name is required")
+  }
+
+  @Test
+  fun `runtimeException`() {
+    val courseDto = CourseDto(null, "Kotlin", "BACKEND")
+
+    val message = "Unexpected Error Occurred"
+    every { courseServiceMock.createCourse(courseDto) } throws RuntimeException(message)
+
+    val actual = webTestClient.post()
+      .uri("/courses")
+      .bodyValue(courseDto)
+      .exchange()
+      .expectStatus().is5xxServerError
+      .expectBody(String::class.java)
+      .returnResult()
+      .responseBody
+
+    Assertions.assertThat(actual).isEqualTo(message)
+  }
+
+
+  @Test
   fun `모든 강좌를 조회한다`() {
     every { courseServiceMock.retrieveAll() } answers {
       listOf(

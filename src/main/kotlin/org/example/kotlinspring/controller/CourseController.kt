@@ -1,5 +1,6 @@
 package org.example.kotlinspring.controller
 
+import jakarta.validation.Valid
 import org.example.kotlinspring.dto.CourseDto
 import org.example.kotlinspring.service.CourseService
 import org.springframework.http.HttpStatus
@@ -11,7 +12,7 @@ class CourseController(private val courseService: CourseService) {
 
   @PostMapping
   @ResponseStatus(HttpStatus.CREATED)
-  fun createCourse(@RequestBody courseDto: CourseDto): CourseDto {
+  fun createCourse(@RequestBody @Valid courseDto: CourseDto): CourseDto {
     return courseService.createCourse(courseDto)
   }
 

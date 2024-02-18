@@ -13,6 +13,10 @@ spring:
     console:
       enabled: true
 
+application:
+  title: Org Gcloud API
+  version: 1.0.0
+
 message: Hello from Default Profile!
 
 ---
