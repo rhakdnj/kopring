@@ -10,6 +10,10 @@ data class Course(
   val id: Long?,
   var name: String,
   var category: String,
+
+  @ManyToOne(fetch = FetchType.LAZY)
+  @JoinColumn(name = "instructor_id", nullable = false)
+  val instructor: Instructor? = null
 ) {
   fun changeName(newName: String) {
     name = newName
