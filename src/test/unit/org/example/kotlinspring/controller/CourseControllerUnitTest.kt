@@ -87,7 +87,7 @@ class CourseControllerUnitTest {
 
   @Test
   fun `모든 강좌를 조회한다`() {
-    every { courseServiceMock.retrieveAll() } answers {
+    every { courseServiceMock.retrieveAll(any()) } answers {
       listOf(
         CourseDto(1, "Kotlin", "BACKEND"),
         CourseDto(2, "React", "FRONTEND"),

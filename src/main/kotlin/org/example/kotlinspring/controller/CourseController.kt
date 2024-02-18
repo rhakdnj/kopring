@@ -17,7 +17,7 @@ class CourseController(private val courseService: CourseService) {
   }
 
   @GetMapping
-  fun retrieveAll(): List<CourseDto> = courseService.retrieveAll()
+  fun retrieveAll(@RequestParam("courseName") courseName: String?): List<CourseDto> = courseService.retrieveAll(courseName)
 
   @PutMapping("/{courseId}")
   fun updateCourse(@PathVariable courseId: Long, @RequestBody courseDto: CourseDto): CourseDto =
