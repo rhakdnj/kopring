@@ -27,7 +27,7 @@ class CourseControllerUnitTest {
 
   @Test
   fun `강좌를 생성한다`() {
-    val courseDto = CourseDto(null, "Kotlin", "BACKEND")
+    val courseDto = CourseDto(null, "Kotlin", "BACKEND", 1)
 
     every { courseServiceMock.createCourse(courseDto) } answers {
       CourseDto(1, "Kotlin", "BACKEND")
@@ -47,7 +47,7 @@ class CourseControllerUnitTest {
 
   @Test
   fun `이름, 카테고리가 없으면 400 에러를 던지며, 해당하는 에러 메시지를 바디에 담은다`() {
-    val courseDto = CourseDto(null, "", "")
+    val courseDto = CourseDto(null, "", "", 1)
 
     every { courseServiceMock.createCourse(courseDto) } answers {
       CourseDto(1, "Kotlin", "BACKEND")
@@ -67,7 +67,7 @@ class CourseControllerUnitTest {
 
   @Test
   fun `runtimeException`() {
-    val courseDto = CourseDto(null, "Kotlin", "BACKEND")
+    val courseDto = CourseDto(null, "Kotlin", "BACKEND", 1)
 
     val message = "Unexpected Error Occurred"
     every { courseServiceMock.createCourse(courseDto) } throws RuntimeException(message)

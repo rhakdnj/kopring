@@ -4,7 +4,9 @@ import org.assertj.core.api.Assertions
 import org.example.kotlinspring.dto.CourseDto
 import org.example.kotlinspring.entity.Course
 import org.example.kotlinspring.repository.CourseRepository
+import org.example.kotlinspring.repository.InstructorRepository
 import org.example.kotlinspring.util.courseEntityList
+import org.example.kotlinspring.util.instructorEntitty
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
@@ -25,15 +27,24 @@ class CourseControllerIntegrateTest {
   @Autowired
   lateinit var courseRepository: CourseRepository
 
+  @Autowired
+  lateinit var instructorRepository: InstructorRepository
+
   @BeforeEach
   fun setUp() {
     courseRepository.deleteAll()
-    courseRepository.saveAll(courseEntityList)
+    instructorRepository.deleteAll()
+
+    val instructor = instructorRepository.save(instructorEntitty())
+
+    courseRepository.saveAll(courseEntityList(instructor))
   }
 
   @Test
   fun `강좌를 생성한다`() {
-    val courseDto = CourseDto(null, "Kotlin", "BACKEND")
+    val instructor = instructorRepository.findAll().first()
+
+    val courseDto = CourseDto(null, "Kotlin", "BACKEND", instructor.id)
 
     val actual = webTestClient.post()
       .uri("/courses")
@@ -81,10 +92,12 @@ class CourseControllerIntegrateTest {
   @Test
   fun `강좌를 업데이트한다`() {
     // existing course
-    val course = Course(null, "Kotlin", "BACKEND")
+    val instructor = instructorRepository.findAll().first()
+
+    val course = Course(null, "Kotlin", "BACKEND", instructor)
     courseRepository.save(course)
 
-    val updateDto = CourseDto(null, "React", "FRONTEND")
+    val updateDto = CourseDto(null, "React", "FRONTEND", instructor.id)
 
     val actual = webTestClient.put()
       .uri("/courses/{courseId}", course.id)
@@ -102,8 +115,10 @@ class CourseControllerIntegrateTest {
 
   @Test
   fun `강좌를 삭제한다`() {
+    val instructor = instructorRepository.findAll().first()
+
     // existing course
-    val course = Course(null, "Kotlin", "BACKEND")
+    val course = Course(null, "Kotlin", "BACKEND", instructor)
     courseRepository.save(course)
 
     val actual = webTestClient.delete()

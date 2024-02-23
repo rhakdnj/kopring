@@ -2,6 +2,7 @@ package org.example.kotlinspring.repository
 
 import org.assertj.core.api.Assertions
 import org.example.kotlinspring.util.courseEntityList
+import org.example.kotlinspring.util.instructorEntitty
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.MethodSource
@@ -16,10 +17,14 @@ class CourseRepositoryIntegrateTest {
   @Autowired
   lateinit var courseRepository: CourseRepository
 
+  @Autowired
+  lateinit var instructorRepository: InstructorRepository
+
   @BeforeEach
   fun setUp() {
     courseRepository.deleteAll()
-    courseRepository.saveAll(courseEntityList)
+    val instructor = instructorRepository.save(instructorEntitty())
+    courseRepository.saveAll(courseEntityList(instructor))
   }
 
   @ParameterizedTest

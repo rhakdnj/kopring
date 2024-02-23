@@ -22,4 +22,8 @@ data class Course(
   fun changeCategory(newCategory: String) {
     category = newCategory
   }
+
+  override fun toString(): String {
+    return "Course(id=$id, name='$name', category='$category', instructor=${instructor?.id})"
+  }
 }

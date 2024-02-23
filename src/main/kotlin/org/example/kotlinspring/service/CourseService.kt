@@ -9,14 +9,19 @@ import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 
 @Service
-class CourseService(private val courseRepository: CourseRepository) {
+class CourseService(
+  val courseRepository: CourseRepository,
+  val instructorService: InstructorService,
+  ) {
 
   companion object : KLogging()
 
   @Transactional
   fun createCourse(courseDto: CourseDto): CourseDto {
+    val instructor = instructorService.findInstructor(courseDto.instructorId!!)
+
     val courseEntity = courseDto.let {
-      Course(null, it.name, it.category)
+      Course(null, it.name, it.category, instructor)
     }
 
     courseRepository.save(courseEntity)
@@ -24,7 +29,7 @@ class CourseService(private val courseRepository: CourseRepository) {
     logger.info { "Saved course is: $courseEntity" }
 
     return courseEntity.let {
-      CourseDto(it.id, it.name, it.category)
+      CourseDto(it.id, it.name, it.category, it.instructor?.id)
     }
   }
 

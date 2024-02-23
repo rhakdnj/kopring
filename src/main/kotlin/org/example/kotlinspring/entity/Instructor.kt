@@ -16,4 +16,8 @@ data class Instructor(
     orphanRemoval = true
   )
   val courses: List<Course> = mutableListOf()
-)
+) {
+  override fun toString(): String {
+    return "Instructor(id=$id, name=$name)"
+  }
+}
