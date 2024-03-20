@@ -3,6 +3,7 @@ package org.example.kotlinspring.study
 import org.springframework.context.annotation.AnnotationConfigApplicationContext
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
+import org.springframework.context.annotation.Primary
 
 @Configuration
 class Config {
@@ -26,6 +27,7 @@ class Config {
     return Person(name(), age(), address2)
   }
 
+  @Primary
   @Bean
   fun address(): Address {
     return Address("firstLine", "city")
@@ -45,7 +47,10 @@ fun main() {
   context.getBean("age").let(::println)
   context.getBean("person").let(::println)
   context.getBean("person2").let(::println)
-//  context.getBean(Address::class.java).let(::println)
+
+  // without Primary : "address" and "address2" are both of type Address => Exception
+  // with Primary : "address" => No Exception
+  context.getBean(Address::class.java).let(::println)
 
   context.beanDefinitionNames.forEach(::println)
 }
