@@ -46,6 +46,8 @@ fun main() {
   context.getBean("person").let(::println)
   context.getBean("person2").let(::println)
 //  context.getBean(Address::class.java).let(::println)
+
+  context.beanDefinitionNames.forEach(::println)
 }
 
 
