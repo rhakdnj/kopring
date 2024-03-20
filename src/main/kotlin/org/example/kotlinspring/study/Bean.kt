@@ -1,5 +1,6 @@
 package org.example.kotlinspring.study
 
+import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.context.annotation.AnnotationConfigApplicationContext
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
@@ -23,8 +24,8 @@ class Config {
   }
 
   @Bean
-  fun person2(address2: Address): Person {
-    return Person(name(), age(), address2)
+  fun person2(@Qualifier("address2Qualifier") address: Address): Person {
+    return Person(name(), age(), address)
   }
 
   @Primary
@@ -34,6 +35,7 @@ class Config {
   }
 
   @Bean
+  @Qualifier("address2Qualifier")
   fun address2(): Address {
     return Address("secondLine", "city")
   }
