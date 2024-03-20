@@ -34,7 +34,7 @@ fun main() {
   context.getBean("name").let(::println)
   context.getBean("age").let(::println)
   context.getBean("person").let(::println)
-  context.getBean("customAddress").let(::println)
+  context.getBean(Address::class.java).let(::println)
 }
 
 
