@@ -18,17 +18,17 @@ class Config {
 
   @Bean
   fun person(): Person {
-    return Person(name(), age())
+    return Person(name(), age(), address())
   }
 
-  @Bean(name = ["customAddress"])
+  @Bean
   fun address(): Address {
     return Address("firstLine", "city")
   }
 
   @Bean
-  fun personWithParams(name: String, age: Int): Person {
-    return Person(name, age)
+  fun address2(): Address {
+    return Address("secondLine", "city")
   }
 }
 
@@ -39,10 +39,9 @@ fun main() {
   context.getBean("name").let(::println)
   context.getBean("age").let(::println)
   context.getBean("person").let(::println)
-  context.getBean("personWithParams").let(::println)
-  context.getBean(Address::class.java).let(::println)
+//  context.getBean(Address::class.java).let(::println)
 }
 
 
-data class Person(val name: String, val age: Int)
+data class Person(val name: String, val age: Int, val address: Address)
 data class Address(val firstLine: String, val city: String)
