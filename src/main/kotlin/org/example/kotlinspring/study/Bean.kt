@@ -22,6 +22,11 @@ class Config {
   }
 
   @Bean
+  fun person2(address2: Address): Person {
+    return Person(name(), age(), address2)
+  }
+
+  @Bean
   fun address(): Address {
     return Address("firstLine", "city")
   }
@@ -39,6 +44,7 @@ fun main() {
   context.getBean("name").let(::println)
   context.getBean("age").let(::println)
   context.getBean("person").let(::println)
+  context.getBean("person2").let(::println)
 //  context.getBean(Address::class.java).let(::println)
 }
 
