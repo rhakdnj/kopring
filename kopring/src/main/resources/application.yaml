@@ -21,6 +21,11 @@ application:
 
 message: Hello from Default Profile!
 
+currency:
+  url: http://localhost:8080
+  username: username
+  key: defaultKey
+
 ---
 spring:
   config:
