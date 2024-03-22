@@ -23,13 +23,14 @@ dependencies {
   implementation("org.springframework.boot:spring-boot-starter-data-jpa")
   implementation("org.springframework.boot:spring-boot-starter-validation")
   implementation("org.springframework.boot:spring-boot-starter-web")
+  implementation("org.springframework.boot:spring-boot-starter-actuator")
 
   // kotlin
   implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
   implementation("org.jetbrains.kotlin:kotlin-reflect")
 
   // logging
-  implementation("io.github.microutils:kotlin-logging-jvm:2.0.11")
+  implementation("io.github.microutils:kotlin-logging-jvm:3.0.5")
 
   // database
   runtimeOnly("com.h2database:h2")
@@ -38,7 +39,7 @@ dependencies {
   testImplementation("org.springframework.boot:spring-boot-starter-test")
   testImplementation("org.springframework.boot:spring-boot-starter-webflux")
 
-  testImplementation("io.mockk:mockk:1.13.4")
+  testImplementation("io.mockk:mockk:1.13.9")
   testImplementation("com.ninja-squad:springmockk:4.0.2")
 }
 

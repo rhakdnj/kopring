@@ -26,6 +26,12 @@ currency:
   username: username
   key: defaultKey
 
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+
 ---
 spring:
   config:
