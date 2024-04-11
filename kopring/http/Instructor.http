@@ -1,8 +1,0 @@
-### 강사 생성
-
-POST http://localhost:8080/instructors
-Content-Type: application/json
-
-{
-  "name": "강사1"
-}
