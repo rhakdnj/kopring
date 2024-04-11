@@ -1,0 +1,60 @@
+spring:
+  application:
+    name: kopring
+  datasource:
+    url: jdbc:h2:mem:testdb
+    driver-class-name: org.h2.Driver
+    username: sa
+  jpa:
+    generate-ddl: true
+    show-sql: true
+    open-in-view: false
+  h2:
+    console:
+      enabled: true
+  profiles:
+    active: dev
+
+application:
+  title: Org Gcloud API
+  version: 1.0.0
+
+message: Hello from Default Profile!
+
+currency:
+  url: http://localhost:8080
+  username: username
+  key: defaultKey
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+
+---
+spring:
+  config:
+    activate:
+      on-profile: dev
+
+logging:
+  level:
+    org.springframework: debug
+
+---
+# -Dspring.profiles.active=prod
+spring:
+  config:
+    activate:
+      on-profile: prod
+
+message: Hello from Production Profile!
+
+---
+spring:
+  config:
+    activate:
+      on-profile: test
+
+message: Hello from Test Profile!

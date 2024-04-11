@@ -1,0 +1,4 @@
+GET http://localhost:8080/greetings/kotlin
+
+###
+GET http://localhost:8080/greetings/currency
