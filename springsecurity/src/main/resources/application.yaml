@@ -1,0 +1,9 @@
+spring:
+  application.name: springsecurity
+  security:
+    user:
+      name: root
+      password: root
+logging:
+  level:
+    org.springframework: info
