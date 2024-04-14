@@ -10,6 +10,8 @@ import org.springframework.security.config.http.SessionCreationPolicy
 import org.springframework.security.core.userdetails.User
 import org.springframework.security.core.userdetails.UserDetailsService
 import org.springframework.security.core.userdetails.jdbc.JdbcDaoImpl.DEFAULT_USER_SCHEMA_DDL_LOCATION
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
+import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.security.provisioning.InMemoryUserDetailsManager
 import org.springframework.security.provisioning.JdbcUserDetailsManager
 import org.springframework.security.web.SecurityFilterChain
@@ -81,18 +83,25 @@ class BasicSecurityConfiguration {
   @Bean
   fun userDetailsService(dataSource: DataSource): UserDetailsService {
     val user = User.withUsername("user")
-        .password("{noop}user")
+        .password("user")
         .roles("USER")
+        .passwordEncoder { passwordEncoder().encode(it) }
         .build()
 
     val admin = User.withUsername("admin")
-        .password("{noop}admin")
+        .password("admin")
         .roles("USER", "ADMIN")
+        .passwordEncoder { passwordEncoder().encode(it) }
         .build()
 
     val jdbcUserDetailsManager = JdbcUserDetailsManager(dataSource)
     jdbcUserDetailsManager.createUser(user)
     jdbcUserDetailsManager.createUser(admin)
     return jdbcUserDetailsManager
+  }
+
+  @Bean
+  fun passwordEncoder(): PasswordEncoder {
+    return BCryptPasswordEncoder()
   }
 }
