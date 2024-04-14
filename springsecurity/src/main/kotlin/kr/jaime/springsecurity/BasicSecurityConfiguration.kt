@@ -6,6 +6,10 @@ import org.springframework.security.config.Customizer
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
 import org.springframework.security.config.http.SessionCreationPolicy
 import org.springframework.security.web.SecurityFilterChain
+import org.springframework.web.servlet.config.annotation.CorsRegistry
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer
+
+
 
 @Configuration
 class BasicSecurityConfiguration {
@@ -25,5 +29,16 @@ class BasicSecurityConfiguration {
       it.disable()
     }
     return http.build() as SecurityFilterChain
+  }
+
+  @Bean
+  fun corsConfigurer(): WebMvcConfigurer {
+    return object : WebMvcConfigurer {
+      override fun addCorsMappings(registry: CorsRegistry) {
+        registry.addMapping("/**")
+            .allowedMethods("*")
+            .allowedOrigins("http://localhost:3000")
+      }
+    }
   }
 }
