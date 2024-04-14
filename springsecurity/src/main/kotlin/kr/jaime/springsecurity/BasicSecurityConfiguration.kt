@@ -12,7 +12,6 @@ import org.springframework.web.servlet.config.annotation.CorsRegistry
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer
 
 
-
 @Configuration
 class BasicSecurityConfiguration {
 
@@ -27,8 +26,14 @@ class BasicSecurityConfiguration {
     // http.formLogin(Customizer.withDefaults())
     http.httpBasic(Customizer.withDefaults())
 
-    http.csrf{
+    http.csrf {
       it.disable()
+    }
+
+    http.headers { header ->
+      header.frameOptions { frameOption ->
+        frameOption.sameOrigin()
+      }
     }
     return http.build() as SecurityFilterChain
   }
