@@ -7,3 +7,9 @@ spring:
 logging:
   level:
     org.springframework: info
+
+server:
+  servlet:
+    session:
+      cookie:
+        same-site: strict
