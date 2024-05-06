@@ -1,0 +1,19 @@
+spring.application.name: keycloak
+
+spring.security:
+  oauth2.client:
+    registration:
+      keycloak-oidc:
+        provider: keycloak
+        client-name: bugtracker
+        client-id: bugtracker
+        client-secret: mbYM7DuRNlCZzoo8pGYayDSWjnWAWUpw
+        authorization-grant-type: authorization_code
+        scope: openid,email,profile,bugtracker
+    provider:
+      keycloak.issuer-uri: http://localhost:9091/realms/oauthrealm
+
+logging:
+  level:
+    org.springframework.web.client: trace
+    web: trace
