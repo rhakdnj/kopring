@@ -9,6 +9,7 @@ import org.springframework.context.annotation.Configuration
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType
 import org.springframework.security.config.Customizer
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
 import org.springframework.security.config.http.SessionCreationPolicy
 import org.springframework.security.core.userdetails.User
@@ -31,10 +32,13 @@ import javax.sql.DataSource
 
 
 @Configuration
+@EnableMethodSecurity  // @Pre, @Post 등의 어노테이션을 사용하기 위해 필요
 class JwtSecurityConfiguration {
   @Bean
   fun securityFilterChain(http: HttpSecurity): SecurityFilterChain {
     http.authorizeHttpRequests { auth ->
+      auth.requestMatchers("/users/**").hasRole("USER, ADMIN")
+      auth.requestMatchers("/admin/**").hasRole("ADMIN")
       auth.anyRequest().authenticated()
     }
     http.sessionManagement { session ->

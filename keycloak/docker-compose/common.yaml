@@ -1,0 +1,3 @@
+networks:
+  keycloak-study:
+    driver: bridge
